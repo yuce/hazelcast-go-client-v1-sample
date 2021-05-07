@@ -2,14 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"time"
-
 	"github.com/hazelcast/hazelcast-go-client"
 	"github.com/hazelcast/hazelcast-go-client/cluster"
-	"github.com/hazelcast/hazelcast-go-client/lifecycle"
-	"github.com/hazelcast/hazelcast-go-client/logger"
 	"github.com/hazelcast/hazelcast-go-client/serialization"
+	"log"
+	"time"
 )
 
 type Person struct {
@@ -52,20 +49,20 @@ func (p PersonFactory) FactoryID() int32 {
 	return 824811
 }
 
-func lifecycleStateChangeHandler(event lifecycle.StateChanged) {
+func lifecycleStateChangeHandler(event hazelcast.LifecycleStateChanged) {
 	var state string
 	switch event.State {
-	case lifecycle.StateStarting:
+	case hazelcast.LifecycleStateStarting:
 		state = "STARTING"
-	case lifecycle.StateStarted:
+	case hazelcast.LifecycleStateStarted:
 		state = "STARTED"
-	case lifecycle.StateShuttingDown:
+	case hazelcast.LifecycleStateShuttingDown:
 		state = "SHUTTING DOWN"
-	case lifecycle.StateShutDown:
+	case hazelcast.LifecycleStateShutDown:
 		state = "SHUT DOWN"
-	case lifecycle.StateClientConnected:
+	case hazelcast.LifecycleStateClientConnected:
 		state = "CLIENT CONNECTED"
-	case lifecycle.StateClientDisconnected:
+	case hazelcast.LifecycleStateClientDisconnected:
 		state = "CLIENT DISCONNECTED"
 	default:
 		state = fmt.Sprintf("UNKNOWN STATE: %d", event.State)
