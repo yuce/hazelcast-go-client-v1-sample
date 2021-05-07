@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/hazelcast/hazelcast-go-client"
 	"github.com/hazelcast/hazelcast-go-client/cluster"
+	"github.com/hazelcast/hazelcast-go-client/logger"
 	"github.com/hazelcast/hazelcast-go-client/serialization"
 	"log"
 	"time"
@@ -73,9 +74,9 @@ func lifecycleStateChangeHandler(event hazelcast.LifecycleStateChanged) {
 func memberStateChangeHandler(event cluster.MembershipStateChanged) {
 	switch event.State {
 	case cluster.MembershipStateAdded:
-		log.Printf("Member Added: %s @%s", event.Member.Uuid(), event.Member.Address())
+		log.Printf("Member Added: %s @%s", event.Member.UUID(), event.Member.Address())
 	case cluster.MembershipStateRemoved:
-		log.Printf("Member Removed: %s @%s", event.Member.Uuid(), event.Member.Address())
+		log.Printf("Member Removed: %s @%s", event.Member.UUID(), event.Member.Address())
 	}
 }
 
@@ -84,23 +85,15 @@ func main() {
 	configBuilder.Logger().
 		SetLevel(logger.TraceLevel)
 	configBuilder.Cluster().
-		SetMembers("localhost:5701")
+		SetAddrs("localhost:5701")
 	configBuilder.Serialization().
 		AddPortableFactory(&PersonFactory{})
-	client, err := hazelcast.NewClientWithConfig(configBuilder)
+	configBuilder.AddLifecycleListener(lifecycleStateChangeHandler)
+	configBuilder.AddMembershipListener(memberStateChangeHandler)
+	client, err := hazelcast.StartNewClientWithConfig(configBuilder)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if err := client.ListenLifecycleStateChange(1, lifecycleStateChangeHandler); err != nil {
-		log.Fatal(err)
-	}
-	if err := client.ListenMembershipStateChange(1, memberStateChangeHandler); err != nil {
-		log.Fatal(err)
-	}
-	if err := client.Start(); err != nil {
-		log.Fatal(err)
-	}
-
 	// get a map
 	people, err := client.GetMap("people")
 	if err != nil {
