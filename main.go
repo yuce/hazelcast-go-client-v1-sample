@@ -3,27 +3,29 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/hazelcast/hazelcast-go-client"
-	"log"
 )
 
 func main() {
 	ctx := context.TODO()
 	client, err := hazelcast.StartNewClient(ctx)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	m, err := client.GetMap(ctx, "my-map")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	if err := m.Set(ctx, "some-key", "some-value"); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	v, err := m.Get(ctx, "some-key")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	fmt.Println("Received value:", v)
-	client.Shutdown(ctx)
+	if err := client.Shutdown(ctx); err != nil {
+		panic(err)
+	}
 }
