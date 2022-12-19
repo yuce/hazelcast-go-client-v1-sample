@@ -6,6 +6,8 @@ github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/go-ole/go-ole v1.2.4 h1:nNBDSCOigTSiarFpYE9J/KtEA1IOW4CNeqT9TQDqCxI=
 github.com/go-ole/go-ole v1.2.4/go.mod h1:XCwSNxSkXRo4vlyPy93sltvi/qJq0jqQhjqQNIwKuxM=
+github.com/hazelcast/hazelcast-go-client v1.3.1-0.20221005090358-58f17bb84ba8 h1:01mbSfmM9XMfSph1cDwFiJIADGPHjqj/gzCUY+zaVCw=
+github.com/hazelcast/hazelcast-go-client v1.3.1-0.20221005090358-58f17bb84ba8/go.mod h1:JH7sI0kvMSlJJ5D+YFRg/J/P41MRPffzCt0bN9LYd0M=
 github.com/hazelcast/hazelcast-go-client v1.3.1 h1:t+TNkugtRv1s+gnmGZ86t3I/N5L58SRCYZgGUpH5+zE=
 github.com/hazelcast/hazelcast-go-client v1.3.1/go.mod h1:JH7sI0kvMSlJJ5D+YFRg/J/P41MRPffzCt0bN9LYd0M=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=

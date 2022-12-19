@@ -1,6 +1,6 @@
 module go-client-v4-sample
 
-go 1.17
+go 1.19
 
 require github.com/hazelcast/hazelcast-go-client v1.3.1
 
